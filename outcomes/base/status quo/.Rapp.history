@@ -1,0 +1,230 @@
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/status quo/chol1sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/status quo/chol2sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/status quo/chol3sim.Rdata")
+mean(chol1sim[,1]!=9999)
+mean(chol1sim[,2]!=9999)
+mean(chol1sim[,3]!=9999)
+mean(chol2sim[,1]!=9999)
+mean(chol3sim[,1]!=9999)
+out = c()#
+for (i in 1:10000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(chol1sim[ind,1]!=9999)#
+}
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:10000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(chol2sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(chol2sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(chol3sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/abx/abx.chol1sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/abx/abx.chol2sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/abx/abx.chol3sim.Rdata")
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(abx.chol1sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(abx.chol2sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(abx.chol3sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/vax/vax.chol1sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/vax/vax.chol2sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/base/vax/vax.chol3sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/vaxabx/abxbase/vax1/base/abx.vax.chol1sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/vaxabx/abxbase/vax1/base/abx.vax.chol2sim.Rdata")
+load("/Users/joelewnard/Documents/newcholera/outcomes/vaxabx/abxbase/vax1/base/abx.vax.chol3sim.Rdata")
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(vax.chol1sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(vax.chol2sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(vax.chol3sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(abx.vax.chol1sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(abx.vax.chol2sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+out = c()#
+for (i in 1:100000){#
+	ind = sample(1:5000,5000,replace=T)#
+	out[i] = mean(abx.vax.chol3sim[ind,1]!=9999)#
+}#
+quantile(out,c(0.5,0.025,0.975))
+load("/Users/joelewnard/Documents/newcholera/incoming/chol1.mcmc.senspi.Rdata")
+dim(state1)
+hist(state1[,2,1])
+hist(state1[,3,1])
+hist(state1[,1,1])
+quantile(state1[,1,1],c(0.025,0.975))
+quantile(state1[10001:50000,1,1],c(0.025,0.975))
+plot(state1[,1,1],type='l')
+plot(state1[,1,2],type='l')
+plot(state1[,1,3],type='l')
+plot(state1[,2,1],type='l')
+plot(state1[,2,2],type='l')
+plot(state1[,2,3],type='l')
+plot(state1[,3,1],type='l')
+plot(state1[,3,2],type='l')
+plot(state1[,3,3],type='l')
+plot(state1[,4,1],type='l')
+plot(state1[,4,2],type='l')
+plot(state1[,4,3],type='l')
+plot(state1[,5,1],type='l')
+plot(state1[,5,2],type='l')
+plot(state1[,5,3],type='l')
+plot(state1[,6,1],type='l')
+plot(state1[,6,2],type='l')
+plot(state1[,6,3],type='l')
+plot(state1[,1,3],type='l')
+plot(state1[,1,1],type='l')
+plot(state1[,1,2],type='l')
+plot(state1[,1,1],type='l')
+plot(state1[,1,2],type='l')
+plot(state1[,1,3],type='l')
+plot(state1[,2,3],type='l')
+plot(state1[,3,3],type='l')
+plot(state1[,3,3],type='l')
+plot(state1[,4,3],type='l')
+plot(state1[,3,3],type='l')
+plot(state1[,5,3],type='l')
+plot(state1[,6,3],type='l')
+plot(state1[,2,3],type='l')
+plot(state1[,3,3],type='l')
+plot(state1[,3,2],type='l')
+plot(state1[,3,1],type='l')
+plot(state1[,3,2],type='l')
+plot(state1[,3,3],type='l')
+plot(state1[,1,3],type='l')
+plot(state1[,2,3],type='l')
+plot(state1[,1,3],type='l')
+plot(state1[,1,1],type='l')
+plot(state1[,1,2],type='l')
+plot(state1[,2,2],type='l')
+plot(state1[,2,3],type='l')
+plot(state1[,2,6],type='l')
+plot(state1[,6,2],type='l')
+plot(state1[,6,1],type='l')
+plot(state1[,6,3],type='l')
+plot(state1[,4,3],type='l')
+plot(state1[,4,2],type='l')
+plot(state1[,4,1],type='l')
+plot(state1[,4,1],type='l')
+load("/Users/joelewnard/Documents/newcholera/incoming/chol1.mcmc.senspi.Rdata")
+plot(state1[,4,1],type='l')
+plot(state1[,4,1],type='l')
+plot(state1[,2,1],type='l')
+plot(state1[,1,1],type='l')
+plot(state1[,1,2],type='l')
+plot(state1[,1,3],type='l')
+load("/Users/joelewnard/Documents/newcholera/incoming/chol1.mcmc.senspi10.Rdata")
+plot(state1[,1,3],type='l')
+plot(state1[,1,1],type='l')
+plot(state1[,1,2],type='l')
+quantile(state1[10001:50000,1,],c(0.5,0.025,0.975))
+quantile(state1[10001:50000,1,],c(0.5,0.025,0.975))
+quantile(state1[10001:50000,1,1],c(0.5,0.025,0.975))
+quantile(state1[10001:50000,1,2],c(0.5,0.025,0.975))
+quantile(state1[10001:50000,1,3],c(0.5,0.025,0.975))
+pars = c(1/1.55,1/5.09,1/3.32,1/1.77,100,1,0.1,0.025,9923243,879644,9043599,1,1/30,8.58)#
+parnames = c('delta','gammaA','gammaD','gammaC','eta','xi','kappa','zeta','N','Nart','Noth','mu1','mu2','nu',#
+             'pi','betaW','betaL','k','omega','popA')#
+RW1 = RH1 = R01 = c()#
+r = 1 + log10(nu)#
+#
+set.seed(101)#
+nsims=5000#
+for (l in 1:nsims){#
+  par = c(pars,doubler.state1[sample(10001:50000,1),,sample(1:3,1)])#
+  for (z in 1:length(parnames)){#
+    assign(parnames[z],par[z])#
+  }#
+  RW1[l] = betaW*(gammaC*gammaD*(1-zeta)*kappa*(mu1+eta*mu2)+betaW*(mu1+eta*eta*mu2)*(gammaA*(gammaD*nu*gammaC)-gammaC*gammaD*(1-zeta)))*xi*popA*Nart/(gammaA*gammaC*gammaD*(1-zeta)*kappa*kappa*mu1*mu2)#
+  RH1[l] = betaL*((1-pi)/gammaA + pi*(gammaA*r + gammaD)/(gammaC*gammaD*(1-zeta)))#
+  R01[l] = (RW1[l]*popA*Nart + RH1[l]*N)/N#
+}
+pars = c(1/1.55,1/5.09,1/3.32,1/1.77,100,1,0.1,0.025,9923243,879644,9043599,1,1/30,8.58)#
+parnames = c('delta','gammaA','gammaD','gammaC','eta','xi','kappa','zeta','N','Nart','Noth','mu1','mu2','nu',#
+             'pi','betaW','betaL','k','omega','popA')#
+RW1 = RH1 = R01 = c()#
+r = 1 + log10(nu)#
+#
+set.seed(101)#
+nsims=5000#
+for (l in 1:nsims){#
+  par = c(pars,state1[sample(10001:50000,1),,sample(1:3,1)])#
+  for (z in 1:length(parnames)){#
+    assign(parnames[z],par[z])#
+  }#
+  RW1[l] = betaW*(gammaC*gammaD*(1-zeta)*kappa*(mu1+eta*mu2)+betaW*(mu1+eta*eta*mu2)*(gammaA*(gammaD*nu*gammaC)-gammaC*gammaD*(1-zeta)))*xi*popA*Nart/(gammaA*gammaC*gammaD*(1-zeta)*kappa*kappa*mu1*mu2)#
+  RH1[l] = betaL*((1-pi)/gammaA + pi*(gammaA*r + gammaD)/(gammaC*gammaD*(1-zeta)))#
+  R01[l] = (RW1[l]*popA*Nart + RH1[l]*N)/N#
+}
+names(pars) = parnames
+which(parnames=='nu')
+pars[14]
+pars = c(1/1.55,1/5.09,1/3.32,1/1.77,100,1,0.1,0.025,9923243,879644,9043599,1,1/30,8.58)#
+parnames = c('delta','gammaA','gammaD','gammaC','eta','xi','kappa','zeta','N','Nart','Noth','mu1','mu2','nu',#
+             'pi','betaW','betaL','k','omega','popA')#
+RW1 = RH1 = R01 = c()#
+r = 1 + log10(8.58)#
+#
+set.seed(101)#
+nsims=5000#
+for (l in 1:nsims){#
+  par = c(pars,state1[sample(10001:50000,1),,sample(1:3,1)])#
+  for (z in 1:length(parnames)){#
+    assign(parnames[z],par[z])#
+  }#
+  RW1[l] = betaW*(gammaC*gammaD*(1-zeta)*kappa*(mu1+eta*mu2)+betaW*(mu1+eta*eta*mu2)*(gammaA*(gammaD*nu*gammaC)-gammaC*gammaD*(1-zeta)))*xi*popA*Nart/(gammaA*gammaC*gammaD*(1-zeta)*kappa*kappa*mu1*mu2)#
+  RH1[l] = betaL*((1-pi)/gammaA + pi*(gammaA*r + gammaD)/(gammaC*gammaD*(1-zeta)))#
+  R01[l] = (RW1[l]*popA*Nart + RH1[l]*N)/N#
+}
+}R01
+R01
+quantile(R01,c(0.5,0.025,0.975))
+quantile(RW1,c(0.5,0.025,0.975))
+quantile(RH1,c(0.5,0.025,0.975))
+means = digamma(65)

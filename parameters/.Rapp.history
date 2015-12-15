@@ -1,0 +1,1936 @@
+par(mfrow=c(1,1))#
+#
+hist(rlnorm(100000,log(9.9),log(4.7)),breaks=10000,xlim=c(0,20))#
+sigma = 4.7*7#
+mu = 9.9*7#
+theta = mu/(sigma^2)#
+k = mu*theta#
+#
+mean(rgamma(100000,k,theta))#
+#
+var(rgamma(10000,mu*theta,mu/(sigma^2)))#
+#
+1/(8.3*7)#
+1/(0.3*7)#
+#
+1/(9.9*7)#
+setwd('~/Documents')#
+dat1 = c(rep(0,7),as.matrix(read.csv('piarrouxAall.csv',header=F))) + c(rep(0,7),as.matrix(read.csv('piarrouxBall.csv',header=F)))#
+dat2 = c(rep(0,7),as.matrix(read.csv('piarrouxCall.csv',header=T)))#
+par(mfrow=c(1,1)); par(mar=c(5,4,2,2))#
+plot(dat1[1:27],type='l',col='red',lwd=3,bty='n',ylab='Cases',xlab='Days after troop arrival')#
+lines(dat2[1:27],col='black',lwd=3)#
+legend('topleft',c('Artibonite-adjacent','Other communes'),col=c('red','black'),bty='n',lwd=c(3,3))#
+#
+setwd('~/Documents/newcholera/inputs')#
+load(file='runs.Rdata')#
+load(file='runs2.Rdata')#
+#
+#load(file='runs1.Rdata'); load(file='runs2.Rdata'); load(file='runs3.Rdata'); load(file='runs4.Rdata'); load(file='runs5.Rdata')#
+runsl = array(NA,dim=c(100,31,7))#
+runsl[1:28,,] = runs[1:28,,]#; runs[11:20,,] = runs2; runs[21:30,,] = runs3; runs[31:40,,] = runs4; runs[41:50,,] = runs5#
+runsl[29:100,,] = runs2[29:100,,]#
+y1 = y2 = matrix(NA,31,100)#
+for (l in 1:100){#
+  y1[,l] = runsl[l,,3] + runsl[l,,5]#
+  y2[,l] = runsl[l,,7]#
+}#
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),col='red',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-70,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='red',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),col='red',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(3,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-70,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='red',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),col='red',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-70,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='red',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),col='red',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='red',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),col='red',lwd=0.01) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='red',lwd=0.01)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),col='red',lwd=0.001) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='red',lwd=0.001)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),col='pink',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='pink',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.075,col=rgb(1,0,0,0.5))#col='pink',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='pink',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.075,col=rgb(1,0,0,0.15))#col='pink',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='pink',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.075,col=rgb(1,0,0,0.05))#col='pink',lwd=0.075) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),col='pink',lwd=0.075)#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#col='pink',lwd=0.1) #
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#col='pink',lwd=0.1)#
+    count = count + 1#
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+count = 0#
+#
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#col='pink',lwd=0.1)#
+    count = count + 1#
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+count
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#col='pink',lwd=0.2)#
+    count = count + 1#
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),lwd=0.2,col=rgb(1,0,0,0.05))#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#col='pink',lwd=0.5)#
+    count = count + 1#
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),lwd=0.5,col=rgb(1,0,0,0.05))#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+original.parameters<-par()#
+layout(matrix(c(1,2),nrow=2),heights=c(1,1))#
+par(mar=c(1,4,1,1))#
+plot(c(0,diff(y1[1:28,1])),col=0,ylim=c(0,2700),bty='n',yaxt='n',xaxt='n',ylab='Daily cases',xlab=NA,cex.lab=0.85)#
+axis(2,at=seq(0,2500,by=500),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+mtext('A',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y1[1:20,l])!=0){#
+    lines(c(0,diff(y1[1:28,l])),lwd=0.1,col=rgb(1,0,0,0.05))#col='pink',lwd=0.5)#
+    count = count + 1#
+  }#
+}#
+points(dat1[1:27],pch=1,col='black',cex=0.65)#
+#
+par(mar=c(4,4,1,1))#
+plot(c(0,diff(y2[1:28,1])),col=0,ylim=c(0,650),bty='n',ylab='Daily cases',xaxt='n',yaxt='n',cex.lab=0.85,xlab='Date')#
+axis(2,at=seq(0,600,by=100),labels=T,cex.axis=0.75,tck=-0.03)#
+axis(1, at=seq(0,28, by=7),labels = FALSE,tck=-0.03)#
+text(seq(0,28, by=7), par("usr")[3]-100,adj=0.9,srt=45,labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov'),xpd=T,cex=0.75) #labels=c('9 Oct','16 Oct','23 Oct','30 Oct','6 Nov', srt = 45, pos = 1, xpd = TRUE))#
+mtext('B',3,adj=0,font=2)#
+for (l in 1:100){#
+  if (sum(y2[1:20,l])!=0){#
+    lines(c(0,diff(y2[1:28,l])),lwd=0.5,col=rgb(1,0,0,0.05))#
+  }#
+}#
+points(dat2[1:27],pch=1,col='black',cex=0.65)
+setwd('~/Documents/newcholera/parameters')
+load('chol1.mcmc.Rdata')
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')
+dim(state1)
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))
+layout.show(1)
+layout.show(24)
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1.5),height=c(rep(1,5),1.5))#
+layout.show(24)
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+#
+plot(state1[,1,1],type='l')
+par(mar=c(1,5,1,1))
+plot(state1[,1,1],type='l',bty='n')
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+#
+par(mar=c(1,5,1,1))#
+plot(state1[,1,1],type='l',bty='n')
+dim(state1)
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+dim(state1)#
+par(mar=c(1,5,1,1))#
+plot(state1[,1,1],type='l',bty='n',col='blue'); lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',col='blue',ylim=c(min(state1[,i,]),max(state1[,i,]))); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+}
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,])))); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+}
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xlab='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,])))); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+}
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,])))); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+}
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,])))); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+ylabels = rep('beta[W]',5)#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),ylab=expression(ylabels[i])); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+ylabels
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+ylabels = rep('beta[W]',5)#
+ylabels#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),ylab=expression(parse(ylabels[i])); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+ylabels = rep('beta[W]',5)#
+ylabels#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),ylab=expression(parse(ylabels[i]))); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+ylabels = rep('beta[W]',5)#
+ylabels#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),ylab=expression('beta[w]')); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+?expression
+setwd('~/Documents/newcholera/parameters')#
+load('chol1.mcmc.Rdata'); load('chol2.mcmc.Rdata'); load('chol3.mcmc.Rdata')#
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.5,1,1,1),height=c(rep(1,5),1.5))#
+ylabels = rep('beta[W]',5)#
+ylabels#
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),ylab=expression(beta[w])); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+?parse
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),ylab=expression(parse(text=ylabels[i])); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+layout.show(24)#
+for (i in 1:5){#
+	par(mar=c(1,5,1,1))#
+	plot(state1[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),ylab=expression(parse(text=ylabels[i]))); lines(state1[,i,2],col='green');#
+	lines(state1[,i,3],col='red')#
+	axis(1,labels=NA)#
+}
+layout.show(24)#
+par(mar=c(1,5,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,i,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(beta[w])); lines(state1[,1,2],col='green');#
+lines(state1[,1,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,5,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(beta[L]));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(beta[W]));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)
+hist(state1[,3,])
+layout.show(24)#
+par(mar=c(1,5,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(pi));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(beta[W]));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(beta[W]));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,5,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(pi));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(beta[W]));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(beta[L]));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(k));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(pi));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(beta[W]));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(beta[L]));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(k));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,6,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})));#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(5,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})));#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})));#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)
+par(mar=c(1,4,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=NA);#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')
+dim(state2)
+mat = matrix(1:24,byrow=F,nrow=6,ncol=4)#
+layout(mat,width=c(1.1,1,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,4,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=NA);#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=NA);#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=NA);#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),axt='n');#
+axis(1,labels=NA)#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),yaxt='n');#
+axis(1,labels=NA)#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')
+layout.show(24)#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),yaxt='n');#
+axis(2,labels=NA)#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),yaxt='n');#
+axis(2,labels=NA)#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')#
+#
+plot(state2[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),yaxt='n');#
+axis(2,labels=NA)#
+lines(state2[,2,2],col='green'); lines(state2[,2,3],col='red')
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),yaxt='n');#
+axis(2,labels=NA)#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')#
+#
+plot(state2[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),yaxt='n');#
+axis(2,labels=NA)#
+lines(state2[,2,2],col='green'); lines(state2[,2,3],col='red')
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(1,1,1,1))#
+plot(state2[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,1,2],col='green'); lines(state2[,1,3],col='red')#
+#
+plot(state2[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,2,2],col='green'); lines(state2[,2,3],col='red')
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,4,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col
+='green'); lines(state2[,6,3],col='red')
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),max(c(state1[,6,],state2[,6,],state3[,6,]))),ylab=NA,xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA)
+?density()
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03))),ylab=NA,xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+?density()
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03))),ylab=NA,xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+?density()
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),max(c(state1[,5,],state2[,5,],state3[,5,]))),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),max(c(state1[,i,],state2[,i,],state3[,i,]))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+?density()
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,5,],state2[,5,],state3[,5,])),0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,i,],state2[,i,],state3[,i,])),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+?density()
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,2,],state2[,2,],state3[,2,])),max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,min(c(state1[,i,],state2[,i,],state3[,i,]))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,min(c(state1[,i,],state2[,i,],state3[,i,]))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+?density()
+quantile(state3[,1,],0.025)
+quantile(state3[,2,],0.025)
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=NA,xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+?density()
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,1,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,1,1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+#
+?density()
+layout(mat,width=c(1.25,1,1),height=c(rep(1,5),1.5))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)
+layout(mat,width=c(1.25,1,1),height=c(1.2,1,1,1,1.5))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(X[0]=1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)
+?plot()
+layout(mat,width=c(1.25,1,1),height=c(1.2,1,1,1,1.5))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(X[0]=1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(X[0]==1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)
+layout(mat,width=c(1.25,1,1),height=c(1.2,1,1,1,1.5))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(italic(X)[0]==1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)
+layout(mat,width=c(1.25,1,1),height=c(1.2,1,1,1,1,1.5))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(italic(X)[0]==1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n');#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)
+layout(mat,width=c(1.25,1,1),height=c(1.2,1,1,1,1,1.35))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(italic(X)[0]==1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n',main=ifelse(i==1,expression(italic(X)[0]==2),NA));#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n',main=ifelse(i==1,expression(italic(X)[0]==3),NA));#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)
+mat = matrix(1:20,byrow=F,nrow=6,ncol=5)#
+#
+layout(mat,width=c(1.25,1,1),height=c(1.2,1,1,1,1,1.35))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(italic(X)[0]==1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n',main=ifelse(i==1,expression(italic(X)[0]==2),NA));#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n',main=ifelse(i==1,expression(italic(X)[0]==3),NA));#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)
+mat = matrix(1:,byrow=F,nrow=6,ncol=3)#
+#
+layout(mat,width=c(1.25,1,1),height=c(1.2,1,1,1,1,1.35))#
+#
+par(mar=c(1,4,2,1))#
+plot(state1[,1,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,1,],state2[,1,],state3[,1,])),max(c(state1[,1,],state2[,1,],state3[,1,]))),ylab=expression(italic(pi)),main=expression(italic(X)[0]==1));#
+lines(state1[,1,2],col='green'); lines(state1[,1,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,2,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(1.5e-7,max(c(state1[,2,],state2[,2,],state3[,2,]))),ylab=expression(italic(beta[W])));#
+lines(state1[,2,2],col='green'); lines(state1[,2,3],col='red')#
+axis(1,labels=NA)#
+plot(state1[,3,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,3,],state2[,3,],state3[,3,])),max(c(state1[,3,],state2[,3,],state3[,3,]))),ylab=expression(italic(beta[L])));#
+lines(state1[,3,2],col='green'); lines(state1[,3,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,4,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(min(c(state1[,4,],state2[,4,],state3[,4,])),max(c(state1[,4,],state2[,4,],state3[,4,]))),ylab=expression(italic(k)));#
+lines(state1[,4,2],col='green'); lines(state1[,4,3],col='red')#
+axis(1,labels=NA)#
+#
+plot(state1[,5,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(0.02,0.06),ylab=expression(italic(omega)));#
+lines(state1[,5,2],col='green'); lines(state1[,5,3],col='red')#
+axis(1,labels=NA)#
+#
+par(mar=c(4,4,1,1))#
+plot(state1[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),ylab=expression(italic(N^{(W)})/italic(N^{(A)})),xlab='Iteration');#
+lines(state1[,6,2],col='green'); lines(state1[,6,3],col='red')#
+axis(1,labels=NA)#
+#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state2[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n',main=ifelse(i==1,expression(italic(X)[0]==2),NA));#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state2[,i,2],col='green'); lines(state2[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state2[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state2[,6,2],col='green'); lines(state2[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)#
+for (i in 1:5){#
+	par(mar=c(1,1,ifelse(i==1,2,1),1))#
+plot(state3[,i,1],type='l',bty='n',xaxt='n',col='blue',ylim=c(ifelse(i==5,0.02,ifelse(i==2,1.5e-7,min(c(state1[,i,],state2[,i,],state3[,i,])))),ifelse(i==5,0.06,max(c(state1[,i,],state2[,i,],state3[,i,])))),yaxt='n',main=ifelse(i==1,expression(italic(X)[0]==3),NA));#
+axis(2,labels=NA); axis(1,labels=NA)#
+lines(state3[,i,2],col='green'); lines(state3[,i,3],col='red')#
+}#
+#
+par(mar=c(4,1,1,1))#
+plot(state3[,6,1],type='l',bty='n',col='blue',ylim=c(min(c(state1[,6,],state2[,6,],state3[,6,])),0.03),yaxt='n',xlab='Iteration');#
+lines(state3[,6,2],col='green'); lines(state3[,6,3],col='red')#
+axis(1,labels=NA); axis(2,labels=NA)
